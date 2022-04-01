@@ -1,0 +1,32 @@
+{
+    "workbench.colorTheme": "One Dark Pro Darker",
+    "editor.fontFamily": "Fira Code Retina",
+    "editor.fontLigatures": true,
+    "php.validate.executablePath": "C:\\xampp\\php\\php.exe",        
+    "workbench.iconTheme": "material-icon-theme",    
+    "javascript.updateImportsOnFileMove.enabled": "never",
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },    
+    "editor.renderControlCharacters": true,    
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "explorer.compactFolders": false,
+    "notebook.compactView": false,
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "javascript.inlayHints.enumMemberValues.enabled": true,
+    "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
+    "javascript.inlayHints.parameterTypes.enabled": true,
+    "javascript.inlayHints.propertyDeclarationTypes.enabled": true,
+    "javascript.inlayHints.variableTypes.enabled": true,
+    "editor.fontSize": 16,
+
+    
+}
