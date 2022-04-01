@@ -1,8 +1,5 @@
-import { Beach } from '@src/models/beach';
-
-describe('Beaches functional tests', () => {
-  beforeAll(async () => await Beach.deleteMany({}));
-  describe('When creating a beach', () => {
+describe('Courts functional tests', () => {
+  describe('When creating a courts', () => {
     it('', async () => {
       const newBeach = {
         lat: -33.792726,
@@ -11,7 +8,7 @@ describe('Beaches functional tests', () => {
         position: 'E',
       };
 
-      const response = await global.testRequest.post('/beaches').send(newBeach);
+      const response = await global.testRequest.post('/courts').send(newBeach);
       expect(response.status).toBe(201);
       expect(response.body).toEqual(expect.objectContaining(newBeach));
     });
