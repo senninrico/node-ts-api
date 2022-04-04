@@ -66,8 +66,8 @@ const stormGlassResourceConfig: IConfig = config.get(
 );
 
 export class StormGlass {
-  readonly stormGlassApiParams =
-    'swellDirection,swellHeightmswellPeriod,waveDirection,waveHeight,windDirection,windSpeed';
+  readonly stormGlassAPIParams =
+    'swellDirection,swellHeight,swellPeriod,waveDirection,waveHeight,windDirection,windSpeed';
   readonly stormGlassAPISource = 'noaa';
 
   constructor(protected request = new HTTPUtil.Request()) {}
@@ -76,11 +76,11 @@ export class StormGlass {
     // console.log(stormGlassResourceConfig);
     try {
       const response = await this.request.get<StormGlassForecastResponse>(
-        `${stormGlassResourceConfig.get('apiUrl')}/weater/point?params=${
-          this.stormGlassApiParams
-        }&source=${
-          this.stormGlassAPISource
-        }&end=1592113802&lat=${lat}&lng=${lng}`,
+        `${stormGlassResourceConfig.get(
+          'apiUrl'
+        )}/weather/point?lat=${lat}&lng=${lng}&params=${
+          this.stormGlassAPIParams
+        }&source=${this.stormGlassAPISource}`,
         {
           headers: {
             Authorization: stormGlassResourceConfig.get('apiToken'),

@@ -1,6 +1,6 @@
 describe('Courts functional tests', () => {
   describe('When creating a courts', () => {
-    it('', async () => {
+    it.skip('', async () => {
       const newBeach = {
         lat: -33.792726,
         lng: 151.28984,
