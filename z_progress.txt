@@ -5,3 +5,5 @@ https://github.com/waldemarnt/node-typescript-api/tree/chapter2/step-1
 
 
 https://youtu.be/zizFYLlRd2Q?t=225
+
+https://youtu.be/rEooglp1EIw?t=1391
