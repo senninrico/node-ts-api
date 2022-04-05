@@ -67,7 +67,7 @@ describe('Users functional tests', () => {
       const response = await global.testRequest
         .post('/users/authenticate')
         .send({ email: newUser.email, password: newUser.password });
-
+      console.log(response.body);
       expect(response.body).toEqual(
         expect.objectContaining({ token: expect.any(String) })
       );

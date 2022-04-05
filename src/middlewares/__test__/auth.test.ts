@@ -3,10 +3,10 @@ import { authMiddleware } from '../auth';
 
 describe('AuthMiddleware', () => {
   it('should verify a JWT token and call the next middleware', () => {
-    const jwtToken = AuthService.generateToken({ data: 'fake' });
+    const jwtToken = AuthService.generateToken('fake-user-id');
     const reqFake = {
       headers: {
-        'x-access-token': jwtToken,
+        authorization: 'Bearer ' + jwtToken,
       },
     };
     const resFake = {};
@@ -18,7 +18,7 @@ describe('AuthMiddleware', () => {
   it('should return UNAUTHORIZED if there is a problem on the token verification', () => {
     const reqFake = {
       headers: {
-        'x-access-token': 'invalid token',
+        authorization: 'Bearer invalid token',
       },
     };
     const sendMock = jest.fn();
