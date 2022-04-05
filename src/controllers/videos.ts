@@ -15,6 +15,7 @@ export class VideosController {
 
   @Get('shot')
   public async shot(req: Request, res: Response): Promise<void> {
-    res.status(200).send(req.body);
+    const instante = new Date();
+    res.status(200).send({ ...req.body, ...{ instante } });
   }
 }

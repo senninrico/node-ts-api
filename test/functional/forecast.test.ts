@@ -6,9 +6,9 @@ import stormGlassWeather3HoursFixture from '../fixtures/stormglass_weather_3_hou
 import apiForecastResponse1BeachFixture from '../fixtures/api_forecast_response_1_beach.json';
 
 describe('Beach forecast functional tests', () => {
-  const defaultUser = {
+  const defaultUser: User = {
     name: 'John Doe',
-    email: 'john2@mail.com',
+    email: 'john3@mail.com',
     password: '1234',
   };
 
@@ -25,9 +25,7 @@ describe('Beach forecast functional tests', () => {
       position: BeachPosition.E,
       user: user.id,
     };
-
-    const beach = new Beach(defaultBeach);
-    await beach.save();
+    await new Beach(defaultBeach).save();
     token = AuthService.generateToken(user.toJSON());
   });
 
