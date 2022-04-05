@@ -9,18 +9,7 @@ export function authMiddleware(
   console.log(req.headers);
   const token = req.headers?.['authorization'];
   try {
-    if (!token) {
-      throw '401';
-    }
-
-    let t = token as string;
-
-    if (!t.includes('Bearer')) {
-      throw '401';
-    } else {
-      t = t.split(' ')[1];
-    }
-    const claims = AuthService.decodeToken(t);
+    const claims = AuthService.decodeToken(token as string);
     req.context = { userId: claims.sub };
     next();
   } catch (err) {
