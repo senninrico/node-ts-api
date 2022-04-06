@@ -25,7 +25,7 @@ export class BeachesController extends BaseController {
   }
 
   @Get('')
-  @Middleware(authMiddleware)
+  // @Middleware(authMiddleware)
   public async getTest(req: Request, res: Response): Promise<void> {
     res.status(200).send({ test: 'ok' });
   }
