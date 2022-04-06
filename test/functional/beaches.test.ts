@@ -1,5 +1,5 @@
 import { Beach } from '@src/models/beach';
-import { User } from '@src/models/user';
+import { User, UserType } from '@src/models/user';
 import AuthService from '@src/services/auth';
 
 describe('Beaches functional tests', () => {
@@ -7,14 +7,18 @@ describe('Beaches functional tests', () => {
     name: 'John Doe',
     email: 'john2@mail.com',
     password: '1234',
+    userType: UserType.Player,
   };
 
   let token: string;
+  let userId: string;
+
   beforeEach(async () => {
     await Beach.deleteMany({});
     await User.deleteMany({});
     const user = await new User(defaultUser).save();
     token = AuthService.generateToken(user.toJSON());
+    userId = user.id;
   });
 
   describe('When creating a new beach', () => {
@@ -24,6 +28,7 @@ describe('Beaches functional tests', () => {
         lng: 151.289824,
         name: 'Manly',
         position: 'E',
+        user: userId,
       };
 
       const response = await global.testRequest
