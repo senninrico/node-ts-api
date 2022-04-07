@@ -4,7 +4,7 @@ import { User, UserType } from '@src/models/user';
 import AuthService from '@src/services/auth';
 
 describe('Courts functional tests', () => {
-  const defaultUser = {
+  const defaultUser: User = {
     name: 'John Doe2',
     email: 'john3@mail.com',
     password: '1234',
@@ -24,8 +24,7 @@ describe('Courts functional tests', () => {
 
   describe('When creating a new Court', () => {
     it('should create a court with success', async () => {
-      console.log('UserId:', userId);
-      const newCourt = {
+      const newCourt: Court = {
         name: 'Quadra Areia 1',
         typeSport: 'Beach Volley',
         user: userId,
@@ -41,10 +40,8 @@ describe('Courts functional tests', () => {
     });
 
     it('should return 422 when there is a validation error', async () => {
-      logger.info('UserID:', userId);
       const newCourt = {
-        name: 'Quadra Areia 1',
-        typeSport: 'true',
+        name: 'Volleyball -1',
         user: userId,
       };
       const response = await global.testRequest
@@ -57,7 +54,7 @@ describe('Courts functional tests', () => {
         code: 422,
         error: 'Unprocessable Entity',
         message:
-          'Court validation failed: typeSport: Cast to Boolea failed for value "true" (type string) at path "typeSport"',
+          'Court validation failed: typeSport: Path `typeSport` is required.',
       });
     });
 

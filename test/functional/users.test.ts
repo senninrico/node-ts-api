@@ -7,7 +7,7 @@ describe('Users functional tests', () => {
   });
   describe('When creating a new user', () => {
     it('should successfully create a new user with encrypted password', async () => {
-      const newUser = {
+      const newUser: User = {
         name: 'John Doe',
         email: 'john@mail.com',
         password: '1234',
@@ -43,7 +43,7 @@ describe('Users functional tests', () => {
     });
 
     it('Should return 409 when the email already exists', async () => {
-      const newUser = {
+      const newUser: User = {
         name: 'John Doe',
         email: 'john@mail.com',
         password: '1234',
@@ -64,7 +64,7 @@ describe('Users functional tests', () => {
 
   describe('when authenticating a user', () => {
     it('should generate a token for a valid user', async () => {
-      const newUser = {
+      const newUser: User = {
         name: 'John Doe',
         email: 'john@mail.com',
         password: '1234',
@@ -88,7 +88,7 @@ describe('Users functional tests', () => {
     });
 
     it('Should return ANAUTHORIZED if the user is found but the password does not match', async () => {
-      const newUser = {
+      const newUser: User = {
         name: 'John Doe',
         email: 'john@mail.com',
         password: '1234',
@@ -105,7 +105,7 @@ describe('Users functional tests', () => {
 
   describe('When getting user profile info', () => {
     it(`Should return the token's owner profile information`, async () => {
-      const newUser = {
+      const newUser: User = {
         name: 'John Doe',
         email: 'john@mail.com',
         password: '1234',
@@ -122,7 +122,7 @@ describe('Users functional tests', () => {
     });
 
     it(`Should return Not Found, when the user is not found`, async () => {
-      const newUser = {
+      const newUser: User = {
         name: 'John Doe',
         email: 'john@mail.com',
         password: '1234',

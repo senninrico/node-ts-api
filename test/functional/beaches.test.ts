@@ -1,9 +1,9 @@
-import { Beach } from '@src/models/beach';
+import { Beach, BeachPosition } from '@src/models/beach';
 import { User, UserType } from '@src/models/user';
 import AuthService from '@src/services/auth';
 
 describe('Beaches functional tests', () => {
-  const defaultUser = {
+  const defaultUser: User = {
     name: 'John Doe',
     email: 'john2@mail.com',
     password: '1234',
@@ -23,11 +23,11 @@ describe('Beaches functional tests', () => {
 
   describe('When creating a new beach', () => {
     it('should create a beach with success', async () => {
-      const newBeach = {
+      const newBeach: Beach = {
         lat: -33.792726,
         lng: 151.289824,
         name: 'Manly',
-        position: 'E',
+        position: BeachPosition.E,
         user: userId,
       };
 
