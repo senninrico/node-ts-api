@@ -2,7 +2,7 @@ import mongoose, { Document, Model, Schema } from 'mongoose';
 
 export interface VideoSubscriber {
   _id?: string;
-  user: string;
+  userId: string;
   video: string;
   subscribeDate: Date;
 }

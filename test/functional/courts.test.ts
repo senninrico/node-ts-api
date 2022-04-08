@@ -27,7 +27,7 @@ describe('Courts functional tests', () => {
       const newCourt: Court = {
         name: 'Quadra Areia 1',
         typeSport: 'Beach Volley',
-        user: userId,
+        userId: userId,
       };
 
       const response = await global.testRequest
@@ -42,19 +42,18 @@ describe('Courts functional tests', () => {
     it('should return 422 when there is a validation error', async () => {
       const newCourt = {
         name: 'Volleyball -1',
-        user: userId,
+        userId: userId,
       };
       const response = await global.testRequest
         .post('/courts')
         .set({ 'x-access-token': token })
         .send(newCourt);
 
-      expect(response.status).toBe(422);
+      expect(response.status).toBe(400);
       expect(response.body).toEqual({
-        code: 422,
-        error: 'Unprocessable Entity',
-        message:
-          'Court validation failed: typeSport: Path `typeSport` is required.',
+        code: 400,
+        error: 'Bad Request',
+        message: "request.body should have required property 'typeSport'",
       });
     });
 

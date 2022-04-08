@@ -4,14 +4,14 @@ export interface Court {
   _id?: string;
   name: string;
   typeSport: string;
-  user: string;
+  userId: string;
 }
 
 const schema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     typeSport: { type: String, required: true },
-    user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   },
   {
     toJSON: {

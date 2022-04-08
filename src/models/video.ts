@@ -6,7 +6,7 @@ export interface Video {
   startDate: Date;
   endDate?: Date;
   recording: string;
-  user: string;
+  userId: string;
   court: string;
   replicated: boolean;
 }
@@ -21,7 +21,7 @@ const schema = new mongoose.Schema(
       ref: 'Recording',
       required: true,
     },
-    user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     court: { type: Schema.Types.ObjectId, ref: 'Court', required: true },
     replicated: { type: Boolean, required: true },
   },

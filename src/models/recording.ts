@@ -6,7 +6,7 @@ export interface Recording {
   pid: string;
   startDate: Date;
   endDate?: Date;
-  user: string;
+  userId: string;
   court: string;
 }
 
@@ -16,7 +16,7 @@ const schema = new mongoose.Schema(
     pid: { type: String, required: true },
     startDate: { type: Date, required: true },
     endDate: { type: Date },
-    user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     court: { type: Schema.Types.ObjectId, ref: 'Court', required: true },
     replicated: { type: Boolean, required: true },
   },

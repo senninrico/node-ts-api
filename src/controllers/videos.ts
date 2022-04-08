@@ -9,7 +9,10 @@ export class VideosController extends BaseController {
   @Post('start')
   public async startVideo(req: Request, res: Response): Promise<void> {
     try {
-      const rec = new Recording({ ...req.body, ...{ user: req.decoded?.id } });
+      const rec = new Recording({
+        ...req.body,
+        ...{ userId: req.decoded?.id },
+      });
       const recs = RecService.recordingCam(rec.court);
       if (recs.recording) {
         rec.pid = recs.pid;
