@@ -1,4 +1,4 @@
-import { ClassMiddleware, Controller, Post } from '@overnightjs/core';
+import { ClassMiddleware, Controller, Post, Get } from '@overnightjs/core';
 import { Court } from '@src/models/court';
 import { Request, Response } from 'express';
 import { BaseController } from '.';
@@ -23,8 +23,8 @@ export class CourtsController extends BaseController {
     }
   }
 
-  // @Get('')
-  // public async GetCourt(req: Request, res: Response): Promise<void> {
-  //   res.status(200).send(req.body);
-  // }
+  @Get('')
+  public async GetCourt(req: Request, res: Response): Promise<void> {
+    res.status(200).send(req.body);
+  }
 }
