@@ -8,7 +8,7 @@ export class CamsController extends BaseController {
   @Post('')
   public async create(req: Request, res: Response): Promise<void> {
     try {
-      const cam = new Cam({ ...req.body, ...{ userId: req.decoded?.id } });
+      const cam = new Cam({ ...req.body, ...{ userId: req.context?.userId } });
       const result = await cam.save();
       res.status(201).send(result);
     } catch (error) {

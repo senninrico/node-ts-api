@@ -11,7 +11,7 @@ export interface Rec {
 
 export default class RecService {
   public static recordingCam(court: string): Rec {
-    let rec = { pid: 'asdsad', recording: true };
+    const rec = { pid: 'asdsad', recording: true };
     return rec;
   }
 

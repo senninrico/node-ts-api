@@ -1,10 +1,4 @@
-import {
-  Controller,
-  Get,
-  ClassMiddleware,
-  Post,
-  Middleware,
-} from '@overnightjs/core';
+import { Controller, Get, Post, Middleware } from '@overnightjs/core';
 import { Request, Response } from 'express';
 import { Beach } from '@src/models/beach';
 import { Forecast } from '@src/services/forecast';
@@ -25,7 +19,7 @@ export class ForecastController extends BaseController {
     res: Response
   ): Promise<void> {
     try {
-      const beaches = await Beach.find({ userId: req.decoded?.id });
+      const beaches = await Beach.find({ userId: req.context?.userId });
       const forecastData = await forecast.processForecastForBeaches(beaches);
       res.status(200).send(forecastData);
     } catch (error) {

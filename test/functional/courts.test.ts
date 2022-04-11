@@ -18,7 +18,7 @@ describe('Courts functional tests', () => {
     await Court.deleteMany({});
     await User.deleteMany({});
     const user = await new User(defaultUser).save();
-    token = AuthService.generateToken(user.toJSON());
+    token = AuthService.generateToken(user.id);
     userId = user.id;
   });
 

@@ -17,7 +17,7 @@ describe('Beaches functional tests', () => {
     await Beach.deleteMany({});
     await User.deleteMany({});
     const user = await new User(defaultUser).save();
-    token = AuthService.generateToken(user.toJSON());
+    token = AuthService.generateToken(user.id);
     userId = user.id;
   });
 
