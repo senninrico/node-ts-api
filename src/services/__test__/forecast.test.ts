@@ -1,4 +1,4 @@
-import { StormGlass } from '@src/clients/StormGlass';
+import { StormGlass } from '@src/clients/stormGlass';
 import stormGlassNormalizedResponseFixture from '@test/fixtures/stormglass_normalized_response_3_hours.json';
 
 import { Forecast } from '../forecast';

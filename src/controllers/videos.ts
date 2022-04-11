@@ -11,7 +11,7 @@ export class VideosController extends BaseController {
     try {
       const rec = new Recording({
         ...req.body,
-        ...{ userId: req.decoded?.id },
+        ...{ userId: req.context?.userId },
       });
       const recs = RecService.recordingCam(rec.court);
       if (recs.recording) {
