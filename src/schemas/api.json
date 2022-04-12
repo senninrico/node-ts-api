@@ -328,16 +328,6 @@
           ],
           "description": "Post the list of forecast ordered by the most ranked",
           "operationId": "postForecast",
-          "parameters": [
-            {
-              "name": "x-access-token",
-              "in": "header",
-              "schema": {
-                "$ref": "#/components/schemas/jwtToken"
-              },
-              "required": true
-            }
-          ],
           "responses": {
             "201": {
               "description": "The list of forecast has been returned",

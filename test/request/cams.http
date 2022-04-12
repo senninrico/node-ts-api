@@ -1,0 +1,82 @@
+@baseUrl = http://localhost:3000
+
+# @name login
+POST {{baseUrl}}/users/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+	"email": "ricorico@gmail.com",
+	"password":"123456"
+}
+
+###
+
+@authToken = {{login.response.body.token}}
+
+# @name createCourt
+POST {{baseUrl}}/courts HTTP/1.1
+x-access-token: {{authToken}}
+Content-Type: application/json
+
+{
+       "name": "Quadra Areia 5",
+       "typeSport": "Beach Volley"
+}
+
+
+###
+
+
+# @name all
+GET {{baseUrl}}/courts HTTP/1.1
+x-access-token: {{authToken}}
+Content-Type: application/json
+
+
+###
+
+ # @name listCourts
+
+GET {{baseUrl}}/courts/{{all.response.body.$[0].id}} HTTP/1.1
+x-access-token: {{authToken}}
+Content-Type: application/json
+
+###
+
+# @name createCam
+POST {{baseUrl}}/cams HTTP/1.1
+x-access-token: {{authToken}}
+Content-Type: application/json
+
+{
+	"name": "Cam Leste 01",
+	"label": "C_L_1",
+	"internalIp": "127.0.0.1",
+	"externalIp": "10.0.0.1",
+	"courtId": "{{listCourts.response.body.id}}"
+}
+
+
+# ###
+
+
+# # @name all
+# GET {{baseUrl}}/cams HTTP/1.1
+# x-access-token: {{authToken}}
+# Content-Type: application/json
+
+
+# ###
+
+#  # @name listCam
+
+# GET {{baseUrl}}/cams/{{all.response.body.$[0].id}} HTTP/1.1
+# x-access-token: {{authToken}}
+# Content-Type: application/json
+
+# ###
+
+# # @name delCam
+# DELETE  {{baseUrl}}/cams/{{all.response.body.$[0].id}} HTTP/1.1
+# x-access-token: {{authToken}}
+# Content-Type: application/json

@@ -1,0 +1,57 @@
+@baseUrl = http://localhost:3000
+
+
+# @name create
+POST {{baseUrl}}/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "name":"Ricardo",
+	"email": "ricorico@gmail.com",
+	"password":"123456",
+    "userType" :"Player"
+}
+
+###
+
+# @name login
+POST {{baseUrl}}/users/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+	"email": "ricorico@gmail.com",
+	"password":"123456"
+}
+
+###
+
+@authToken = {{login.response.body.token}}
+
+
+
+###
+
+# @name me
+GET {{baseUrl}}/users/me HTTP/1.1
+Content-Type: application/json
+x-access-token: {{authToken}}
+
+###
+
+# @name email
+GET {{baseUrl}}/users?email={{me.response.body.user.email}} HTTP/1.1
+Content-Type: application/json
+x-access-token: {{authToken}}
+
+###
+
+# @name emailfake
+GET {{baseUrl}}/users?email=fake@mail.com HTTP/1.1
+Content-Type: application/json
+x-access-token: {{authToken}}
+###
+
+# @name deluser
+DELETE  {{baseUrl}}/users HTTP/1.1
+Content-Type: application/json
+x-access-token: {{authToken}}

@@ -1,27 +1,18 @@
-import bcrypt from 'bcrypt';
-import config from 'config';
-import jwt from 'jsonwebtoken';
-import { User } from '@src/models/user';
+import logger from '@src/logger';
+import { Cam } from '@src/models/cam';
 
-//version of the user that is send to via API and decoded from the Json Web Token
 export interface Rec {
   pid: string;
+  fileName: string;
   recording: boolean;
 }
 
 export default class RecService {
-  public static recordingCam(court: string): Rec {
-    const rec = { pid: 'asdsad', recording: true };
+  public static async startRecording(courtId: string): Promise<Rec> {
+    const cams = Cam.find({ courtId });
+    const rec = { pid: 'asdsad', fileName: 'test', recording: true };
+
+    logger.info(JSON.stringify(cams));
     return rec;
   }
-
-  //   public static generateToken(payload: object): string {
-  //     return jwt.sign(payload, config.get('App.auth.key'), {
-  //       expiresIn: config.get('App.auth.tokenExpiresIn'),
-  //     });
-  //   }
-
-  //   public static decodeToken(token: string): DecodedUser {
-  //     return jwt.verify(token, config.get('App.auth.key')) as DecodedUser;
-  //   }
 }

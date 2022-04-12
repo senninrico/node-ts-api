@@ -13,7 +13,7 @@ export class VideosController extends BaseController {
         ...req.body,
         ...{ userId: req.context?.userId },
       });
-      const recs = RecService.recordingCam(rec.court);
+      const recs = await RecService.startRecording('1');
       if (recs.recording) {
         rec.pid = recs.pid;
       }
@@ -33,6 +33,7 @@ export class VideosController extends BaseController {
   @Get('shot')
   public async shot(req: Request, res: Response): Promise<void> {
     const instante = new Date().toLocaleString();
+    // const rec = RecService.Test();
     res.status(200).send({ ...req.body, ...{ instante } });
   }
 }

@@ -1,9 +1,12 @@
-import { Controller, Post, Get, Middleware } from '@overnightjs/core';
+import { Controller, Post, Get, Middleware, Delete } from '@overnightjs/core';
 import { Response, Request } from 'express';
 import { User } from '@src/models/user';
 import AuthService from '@src/services/auth';
 import { BaseController } from './index';
 import { authMiddleware } from '@src/middlewares/auth';
+import logger from '@src/logger';
+import { Decipher } from 'crypto';
+import { StatusCodes } from 'http-status-codes';
 
 @Controller('users')
 export class UsersController extends BaseController {
@@ -12,7 +15,7 @@ export class UsersController extends BaseController {
     try {
       const user = new User(req.body);
       const newUser = await user.save();
-      res.status(201).send(newUser);
+      res.status(StatusCodes.CREATED).send(newUser);
     } catch (error) {
       this.sendCreateUpdateErrorResponse(res, error);
     }
@@ -23,7 +26,7 @@ export class UsersController extends BaseController {
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
       return this.sendErrorResponse(res, {
-        code: 401,
+        code: StatusCodes.UNAUTHORIZED,
         message: 'User not found!',
         description: 'Try verifying your email address.',
       });
@@ -32,7 +35,7 @@ export class UsersController extends BaseController {
       !(await AuthService.comparePasswords(req.body.password, user.password))
     ) {
       return this.sendErrorResponse(res, {
-        code: 401,
+        code: StatusCodes.UNAUTHORIZED,
         message: 'Password does not match!',
       });
     }
@@ -48,11 +51,35 @@ export class UsersController extends BaseController {
     const user = await User.findOne({ _id: userId });
     if (!user) {
       return this.sendErrorResponse(res, {
-        code: 404,
+        code: StatusCodes.UNAUTHORIZED,
         message: 'User not found!',
       });
     }
 
     return res.send({ user });
+  }
+
+  @Get('')
+  @Middleware(authMiddleware)
+  public async byEmail(req: Request, res: Response): Promise<Response> {
+    logger.info('provide:', req.query.email);
+    const user = await User.findOne({ email: req.query.email });
+    if (!user) {
+      return this.sendErrorResponse(res, {
+        code: StatusCodes.NOT_FOUND,
+        message: 'User not found!',
+      });
+    }
+
+    return res.send({ user });
+  }
+
+  @Delete('')
+  @Middleware(authMiddleware)
+  public async delete(req: Request, res: Response): Promise<Response> {
+    const userId = req.context?.userId;
+    const user = await User.findOneAndRemove({ _id: userId });
+
+    return res.status(StatusCodes.OK).send({ message: 'User Deleted.' });
   }
 }

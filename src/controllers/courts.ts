@@ -1,9 +1,16 @@
-import { ClassMiddleware, Controller, Post, Get } from '@overnightjs/core';
+import {
+  ClassMiddleware,
+  Controller,
+  Post,
+  Get,
+  Delete,
+} from '@overnightjs/core';
 import { Court } from '@src/models/court';
 import { Request, Response } from 'express';
 import { BaseController } from '.';
 import logger from '@src/logger';
 import { authMiddleware } from '@src/middlewares/auth';
+import { StatusCodes } from 'http-status-codes';
 
 @Controller('courts')
 @ClassMiddleware(authMiddleware)
@@ -17,7 +24,7 @@ export class CourtsController extends BaseController {
       });
       logger.info(JSON.stringify(court));
       const result = await court.save();
-      res.status(201).send(result);
+      res.status(StatusCodes.CREATED).send(result);
     } catch (error) {
       this.sendCreateUpdateErrorResponse(res, error);
     }
@@ -25,6 +32,22 @@ export class CourtsController extends BaseController {
 
   @Get('')
   public async GetCourt(req: Request, res: Response): Promise<void> {
-    res.status(200).send(req.body);
+    const courts = await Court.find({ userId: req.context?.userId }).limit(10);
+    res.status(StatusCodes.OK).send(courts);
+  }
+
+  @Get(':id')
+  private async get(req: Request, res: Response) {
+    logger.info(req.params.id);
+    const court = await Court.findById(req.params.id);
+    return res.status(StatusCodes.OK).send(court);
+  }
+
+  @Delete(':id')
+  public async delete(req: Request, res: Response): Promise<Response> {
+    const courtId = req.params.id;
+    const court = await Court.findOneAndRemove({ _id: courtId });
+
+    return res.status(StatusCodes.OK).send({ message: 'Court Deleted.' });
   }
 }

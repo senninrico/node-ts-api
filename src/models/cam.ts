@@ -6,7 +6,7 @@ export interface Cam {
   label: string;
   internalIp: string;
   externalIp?: string;
-  court: string;
+  courtId: string;
 }
 
 const schema = new mongoose.Schema(
@@ -15,7 +15,7 @@ const schema = new mongoose.Schema(
     label: { type: String },
     internalIp: { type: String, required: true },
     externalIp: { type: String },
-    court: { type: Schema.Types.ObjectId, ref: 'Court', required: true },
+    courtId: { type: Schema.Types.ObjectId, ref: 'Court', required: true },
   },
   {
     toJSON: {
