@@ -4,6 +4,7 @@ export interface Cam {
   _id?: string;
   name: string;
   label: string;
+  videoParams:string;
   internalIp: string;
   externalIp?: string;
   courtId: string;
@@ -13,6 +14,7 @@ const schema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     label: { type: String },
+    videoParams: { type: String },
     internalIp: { type: String, required: true },
     externalIp: { type: String },
     courtId: { type: Schema.Types.ObjectId, ref: 'Court', required: true },

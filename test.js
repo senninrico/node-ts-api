@@ -50,7 +50,10 @@ const { exec, spawn } = require('child_process');
 
 
 // a command you want to execute.
-const command = "dd if=/dev/zero of=output.dat bs=1M count=6400";
+const ip ="rtsp://10.0.0.180:554/user=admin_password=123456_channel=1_stream=0.sdp";
+const fileNameVideo="/home/srico/Videos/videos/rec_C_L_01_%Y-%m-%d-%H.%M.%S.mp4";
+const timeSlice="00:00:20";
+const command = `ffmpeg -rtsp_transport tcp -i ${ip} -f segment -strftime 1 -segment_time ${timeSlice} -segment_atclocktime 0 -segment_clocktime_offset 0 -segment_format mp4 -an -vcodec copy -reset_timestamps 1 ${fileNameVideo}`;
 
 const parts = command.split(" ");
 const cmd = parts[0];
