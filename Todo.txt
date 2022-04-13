@@ -2,3 +2,17 @@
 -----Itens a adequar
 
 Quadras -> mais de um tipo de esporte
+
+
+ "-rtsp_transport tcp",
+ "-i rtsp://10.0.0.180:554/user=admin_password=123456_channel=1_stream=0.sdp",
+ "-f segment",
+ "-strftime 1",
+ "-segment_time 00:00:10",
+ "-segment_atclocktime 1",
+ "-segment_clocktime_offset 1",
+ "-segment_format mp4",
+ "-an",
+ "-vcodec copy", 
+ "-reset_timestamps 1", 
+ "/home/srico/Videos/videos/record_%Y-%m-%d-%H.%M.%S.mp4",
