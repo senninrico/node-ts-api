@@ -2,18 +2,11 @@ import mongoose, { Document, Model } from 'mongoose';
 import AuthService from '@src/services/auth';
 import logger from '@src/logger';
 
-export enum UserType {
-  Player = 'Player',
-  Customer = 'Customer',
-  Sponsor = 'Sponsor',
-  Showcase = 'Showcase',
-}
 export interface User {
   _id?: string;
   name: string;
   email: string;
   password: string;
-  userType: UserType;
 }
 
 export enum CUSTOM_VALIDATION {
@@ -29,7 +22,6 @@ const schema = new mongoose.Schema(
       unique: true,
     },
     password: { type: String, required: true },
-    userType: { type: String, required: true },
   },
   {
     toJSON: {
@@ -52,31 +44,6 @@ schema.path('email').validate(
 );
 
 schema.pre<UserModel>('save', async function (): Promise<void> {
-  // if (this.userType.length < 2) {
-  //   switch (this.userType.toUpperCase() as string) {
-  //     case 'P':
-  //       this.userType = UserType.Player;
-  //       break;
-  //     case 'C':
-  //       this.userType = UserType.Custormer;
-  //       break;
-  //     case 'Sh':
-  //       this.userType = UserType.Showcase;
-  //       break;
-  //     case 'S':
-  //       this.userType = UserType.Sponsor;
-  //       break;
-
-  //     default:
-  //       break;
-  //   }
-  // }
-
-  if (!Object.values(UserType).includes(this.userType)) {
-    logger.error(`Error in covert userType ${this.userType}`);
-    throw 'Error';
-  }
-
   if (!this.password || !this.isModified('password')) {
     return;
   }

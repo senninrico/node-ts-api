@@ -12,12 +12,9 @@ import { Application } from 'express';
 import * as database from '@src/database';
 import { BeachesController } from './controllers/beaches';
 import { UsersController } from './controllers/users';
-import { VideosController } from './controllers/videos';
-import { CourtsController } from './controllers/courts';
 import logger from './logger';
 import { apiErrorValidator } from './middlewares/api-errror-validator';
 import apiSchema from './schemas/api.json';
-import { CamsController } from './controllers/cams';
 
 export class SetupServer extends Server {
   private server?: http.Server;
@@ -27,22 +24,22 @@ export class SetupServer extends Server {
 
   public async init(): Promise<void> {
     this.setupExpress();
-    // await this.docsSetup();
+    await this.docsSetup();
     this.setupControllers();
     await this.databaseSetup();
     this.setupErrorHandlers();
   }
 
-  // private async docsSetup(): Promise<void> {
-  //   this.app.use('/docs', swaggerUi.serve, swaggerUi.setup(apiSchema));
-  //   this.app.use(
-  //     OpenApiValidator.middleware({
-  //       apiSpec: apiSchema as OpenAPIV3.Document,
-  //       validateRequests: true, //will be implemented in step2
-  //       validateResponses: true, //will be implemented in step2
-  //     })
-  //   );
-  // }
+  private async docsSetup(): Promise<void> {
+    this.app.use('/docs', swaggerUi.serve, swaggerUi.setup(apiSchema));
+    this.app.use(
+      OpenApiValidator.middleware({
+        apiSpec: apiSchema as OpenAPIV3.Document,
+        validateRequests: true, //will be implemented in step2
+        validateResponses: true, //will be implemented in step2
+      })
+    );
+  }
 
   private setupErrorHandlers(): void {
     this.app.use(apiErrorValidator);
@@ -67,16 +64,11 @@ export class SetupServer extends Server {
     const forecastController = new ForecastController();
     const beachesController = new BeachesController();
     const usersController = new UsersController();
-    const videosController = new VideosController();
-    const courtsController = new CourtsController();
-    const camsController = new CamsController();
+
     this.addControllers([
       forecastController,
       beachesController,
       usersController,
-      courtsController,
-      videosController,
-      camsController,
     ]);
   }
 

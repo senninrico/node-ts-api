@@ -1,5 +1,5 @@
 import { Beach, GeoPosition } from '@src/models/beach';
-import { User, UserType } from '@src/models/user';
+import { User } from '@src/models/user';
 import AuthService from '@src/services/auth';
 
 describe('Beaches functional tests', () => {
@@ -7,7 +7,6 @@ describe('Beaches functional tests', () => {
     name: 'John Doe',
     email: 'john2@mail.com',
     password: '1234',
-    userType: UserType.Player,
   };
 
   let token: string;

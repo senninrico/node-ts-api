@@ -1,4 +1,4 @@
-import { User, UserType } from '@src/models/user';
+import { User } from '@src/models/user';
 import AuthService from '@src/services/auth';
 
 describe('Users functional tests', () => {
@@ -11,7 +11,6 @@ describe('Users functional tests', () => {
         name: 'John Doe',
         email: 'john@mail.com',
         password: '1234',
-        userType: UserType.Player,
       };
       const response = await global.testRequest.post('/users').send(newUser);
       expect(response.status).toBe(201);
@@ -30,7 +29,6 @@ describe('Users functional tests', () => {
       const newUser = {
         email: 'john@mail.com',
         password: '1234',
-        userType: UserType.Player,
       };
       const response = await global.testRequest.post('/users').send(newUser);
 
@@ -47,7 +45,6 @@ describe('Users functional tests', () => {
         name: 'John Doe',
         email: 'john@mail.com',
         password: '1234',
-        userType: UserType.Player,
       };
       await global.testRequest.post('/users').send(newUser);
       const response = await global.testRequest.post('/users').send(newUser);
@@ -68,7 +65,6 @@ describe('Users functional tests', () => {
         name: 'John Doe',
         email: 'john@mail.com',
         password: '1234',
-        userType: UserType.Player,
       };
       const user = await new User(newUser).save();
       const response = await global.testRequest
@@ -91,7 +87,6 @@ describe('Users functional tests', () => {
         name: 'John Doe',
         email: 'john@mail.com',
         password: '1234',
-        userType: UserType.Player,
       };
       await new User(newUser).save();
       const response = await global.testRequest
@@ -108,7 +103,6 @@ describe('Users functional tests', () => {
         name: 'John Doe',
         email: 'john@mail.com',
         password: '1234',
-        userType: UserType.Player,
       };
       const user = await new User(newUser).save();
       const token = AuthService.generateToken(user.id);
@@ -125,7 +119,6 @@ describe('Users functional tests', () => {
         name: 'John Doe',
         email: 'john@mail.com',
         password: '1234',
-        userType: UserType.Player,
       };
       //create a new user but don't save it
       const user = new User(newUser);

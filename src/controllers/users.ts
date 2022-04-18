@@ -5,7 +5,6 @@ import AuthService from '@src/services/auth';
 import { BaseController } from './index';
 import { authMiddleware } from '@src/middlewares/auth';
 import logger from '@src/logger';
-import { Decipher } from 'crypto';
 import { StatusCodes } from 'http-status-codes';
 
 @Controller('users')
@@ -51,7 +50,7 @@ export class UsersController extends BaseController {
     const user = await User.findOne({ _id: userId });
     if (!user) {
       return this.sendErrorResponse(res, {
-        code: StatusCodes.UNAUTHORIZED,
+        code: StatusCodes.NOT_FOUND,
         message: 'User not found!',
       });
     }
